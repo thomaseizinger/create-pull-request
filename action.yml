@@ -1,6 +1,9 @@
-name: 'Create Pull Request'
+name: 'Just Create Pull Request'
 description: 'Create a pull request for a given ref and optionally assign reviewers'
 author: 'Thomas Eizinger'
+branding:
+  icon: git-pull-request
+  color: white
 inputs:
   github-token:
     description: 'A GitHub API token'
