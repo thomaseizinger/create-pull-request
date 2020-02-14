@@ -1,0 +1,42 @@
+{
+  "name": "create-pull-request",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A GitHub action for creating pull requests.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "compile": "tsc",
+    "format": "prettier --write **/*.ts",
+    "format-check": "prettier --check **/*.ts",
+    "lint": "eslint src/**/*.ts",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thomaseizinger/create-pull-request-action.git"
+  },
+  "author": "Thomas Eizinger",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.2.0",
+    "@actions/github": "^2.1.0"
+  },
+  "devDependencies": {
+    "@octokit/graphql": "^4.3.1",
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.7.12",
+    "eslint": "^5.16.0",
+    "eslint-plugin-github": "^2.0.0",
+    "eslint-plugin-jest": "^22.21.0",
+    "jest": "^24.9.0",
+    "jest-circus": "^25.1.0",
+    "mock-env": "^0.2.0",
+    "prettier": "^1.19.1",
+    "ts-jest": "^24.2.0",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.3",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  }
+}
