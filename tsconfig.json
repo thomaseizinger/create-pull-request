@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "CommonJS",
+    "strict": true,
+    "noEmit": true,
+    "noImplicitAny": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "./types"
+    ]
+  }
+}
