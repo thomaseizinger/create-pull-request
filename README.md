@@ -1,10 +1,9 @@
 # Create pull request
 
-Does what it says on the tin - creates a pull request.
+Does what it says on the tin - creates a pull request, nothing else.
 
 ## Usage
 
-```yaml
 ```yaml
 name: "Create PR"
 on: push
@@ -21,7 +20,7 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         branch: 
         base: master
-        title: "Merge "
+        title: "An automatically created PR!"
         reviewers: ${{ github.event.issue.user.login }}
         body: |
           Resolves #${{ github.event.issue.number }} 
