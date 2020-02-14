@@ -1,0 +1,107 @@
+name: Continuous integration
+
+on: pull_request
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+      - run: yarn install
+      - run: yarn test
+
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          git config user.email noreply@github.com
+          git config user.name "GitHub actions"
+          git checkout -b feature/test/${{ github.sha }}
+          echo date > current-date.txt
+          git add current-date.txt
+          git commit --message "Some changes"
+          git push origin feature/test/${{ github.sha }}
+      - uses: ./
+        id: create-pr
+        with:
+          head: feature/test/${{ github.sha }}
+          title: Testing commit ${{ github.sha }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Validate that PR exists
+        run: curl --fail https://api.github.com/repos/${{ github.repository }}/pulls/${{ steps.create-pr.outputs.number }}
+      - name: Close PR
+        run: |
+          curl \
+            -X PATCH \
+            -H 'Accept: application/vnd.github.v3+json' \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            https://api.github.com/repos/${{ github.repository }}/pulls/${{ steps.create-pr.outputs.number }} \
+            -d '{"state":"closed"}'
+        if: always()
+
+  create-draft-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          git config user.email noreply@github.com
+          git config user.name "GitHub actions"
+          git checkout -b feature/test/${{ github.sha }}-draft
+          echo date > current-date.txt
+          git add current-date.txt
+          git commit --message "Some changes"
+          git push origin feature/test/${{ github.sha }}-draft
+      - uses: ./
+        id: create-draft-pr
+        with:
+          head: feature/test/${{ github.sha }}-draft
+          title: Testing commit ${{ github.sha }}
+          draft: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Validate that PR exists
+        run: curl --fail https://api.github.com/repos/${{ github.repository }}/pulls/${{ steps.create-draft-pr.outputs.number }}
+      - name: Close PR
+        run: |
+          curl \
+            -X PATCH \
+            -H 'Accept: application/vnd.github.v3+json' \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            https://api.github.com/repos/${{ github.repository }}/pulls/${{ steps.create-draft-pr.outputs.number }} \
+            -d '{"state":"closed"}'
+        if: always()
+
+  create-pr-with-reviewers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          git config user.email noreply@github.com
+          git config user.name "GitHub actions"
+          git checkout -b feature/test/${{ github.sha }}-reviewers
+          echo date > current-date.txt
+          git add current-date.txt
+          git commit --message "Some changes"
+          git push origin feature/test/${{ github.sha }}-reviewers
+      - uses: ./
+        id: create-pr-with-reviewers
+        with:
+          head: feature/test/${{ github.sha }}-reviewers
+          title: Testing commit ${{ github.sha }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          reviewers: thomaseizinger
+      - name: Validate that PR exists
+        run: curl --fail https://api.github.com/repos/${{ github.repository }}/pulls/${{ steps.create-pr-with-reviewers.outputs.number }}
+      - name: Close PR
+        run: |
+          curl \
+            -X PATCH \
+            -H 'Accept: application/vnd.github.v3+json' \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            https://api.github.com/repos/${{ github.repository }}/pulls/${{ steps.create-pr-with-reviewers.outputs.number }} \
+            -d '{"state":"closed"}'
+        if: always()
