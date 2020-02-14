@@ -1,0 +1,28 @@
+name: 'Create Pull Request'
+description: 'Create a pull request for a given ref and optionally assign reviewers'
+author: 'Thomas Eizinger'
+inputs:
+  github-token:
+    description: 'A GitHub API token'
+    required: true
+  head:
+    description: 'The head ref that should be pulled into base.'
+    required: true
+  title:
+    description: 'The title of the pull request.'
+    required: true
+  base:
+    description: 'The base branch for the pull request. Defaults to master.'
+    required: false
+  draft:
+    description: 'Whether this should be a draft PR.'
+    required: false
+  body:
+    description: 'The body of the pull request.'
+    required: false
+  reviewers:
+    description: 'A comma-separated list of GitHub logins that should review this PR.'
+    required: false
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
