@@ -1,5 +1,5 @@
-name: 'Just Create Pull Request'
-description: 'Create a pull request for a given ref and optionally assign reviewers'
+name: 'Just A Create Pull Request'
+description: 'Does what it says on the tin, create a pull request, easy and simple.'
 author: 'Thomas Eizinger'
 branding:
   icon: git-pull-request
