@@ -17,13 +17,7 @@ jobs:
     - name: Create pull request
       uses: thomaseizinger/create-pull-request@v1
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        branch: 
-        base: master
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
         title: "An automatically created PR!"
-        reviewers: ${{ github.event.issue.user.login }}
-        body: |
-          Resolves #${{ github.event.issue.number }} 
-```
-
 ```
