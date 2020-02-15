@@ -1,31 +1,25 @@
-import { setOutput, setFailed } from "@actions/core";
-import {Octokit} from "@octokit/action";
-import { getInputsWithDefaults } from "./getInputsWithDefaults";
-import { getReviewers } from "./getReviewers";
+import { setFailed, setOutput } from "@actions/core";
+import { Octokit } from "@octokit/action";
+import { getInputs } from "./getInputs";
 
 async function run(): Promise<void> {
   try {
+    const { reviewers, ...pullParams } = getInputs();
+
     const octokit = new Octokit();
-
-    const inputs = getInputsWithDefaults();
-
-    const pullRequest = await octokit.pulls.create({
-      ...inputs
-    });
-    const pullNumber = pullRequest.data.number
-
-    const reviewers = getReviewers();
+    const pullRequest = await octokit.pulls.create(pullParams);
+    const pullNumber = pullRequest.data.number;
 
     if (reviewers.length > 0) {
       await octokit.pulls.createReviewRequest({
-        owner: inputs.owner,
-        repo: inputs.repo,
+        owner: pullParams.owner,
+        repo: pullParams.repo,
         pull_number: pullNumber,
         reviewers
       });
     }
 
-    setOutput("number" ,pullNumber.toString());
+    setOutput("number", pullNumber.toString());
   } catch (error) {
     setFailed(error.message);
   }

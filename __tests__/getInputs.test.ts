@@ -1,5 +1,5 @@
 import { morph } from "mock-env";
-import { getInputsWithDefaults } from "../src/getInputsWithDefaults";
+import { getInputs } from "../src/getInputs";
 
 const MANDATORY_INPUTS = {
   INPUT_HEAD: "refs/heads/feature/test",
@@ -8,7 +8,7 @@ const MANDATORY_INPUTS = {
 };
 
 it("should default base to master", function() {
-  const inputs = morph(getInputsWithDefaults, {
+  const inputs = morph(getInputs, {
     ...MANDATORY_INPUTS
   });
 
@@ -16,7 +16,7 @@ it("should default base to master", function() {
 });
 
 it('should parse "false" for draft as false', function() {
-  const inputs = morph(getInputsWithDefaults, {
+  const inputs = morph(getInputs, {
     ...MANDATORY_INPUTS,
     INPUT_DRAFT: "false"
   });
@@ -25,7 +25,7 @@ it('should parse "false" for draft as false', function() {
 });
 
 it('should parse "true" for draft as true', function() {
-  const inputs = morph(getInputsWithDefaults, {
+  const inputs = morph(getInputs, {
     ...MANDATORY_INPUTS,
     INPUT_DRAFT: "true"
   });
@@ -34,7 +34,7 @@ it('should parse "true" for draft as true', function() {
 });
 
 it("should include body if given", function() {
-  const inputs = morph(getInputsWithDefaults, {
+  const inputs = morph(getInputs, {
     ...MANDATORY_INPUTS,
     INPUT_BODY: "Fixes #42"
   });
@@ -43,7 +43,7 @@ it("should include body if given", function() {
 });
 
 it("should parse owner and repo", function() {
-  const inputs = morph(getInputsWithDefaults, {
+  const inputs = morph(getInputs, {
     ...MANDATORY_INPUTS
   });
 

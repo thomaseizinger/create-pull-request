@@ -8,19 +8,21 @@ interface Inputs {
   body?: string;
   owner: string;
   repo: string;
+  reviewers: string[];
 }
 
-export function getInputsWithDefaults(): Inputs {
+export function getInputs(): Inputs {
   const head = getInput("head", { required: true });
   const title = getInput("title", { required: true });
   const base = getInput("base") || "master";
   const draft = getInput("draft") ? JSON.parse(getInput("draft")) : undefined;
   const body = getInput("body") || undefined;
+  const reviewers = getInput("reviewers");
 
   const githubRepository = process.env.GITHUB_REPOSITORY;
 
   if (!githubRepository) {
-    throw new Error("GITHUB_REPOSITORY is not set")
+    throw new Error("GITHUB_REPOSITORY is not set");
   }
 
   const [owner, repo] = githubRepository.split("/");
@@ -32,6 +34,7 @@ export function getInputsWithDefaults(): Inputs {
     draft,
     body,
     owner,
-    repo
+    repo,
+    reviewers: reviewers ? reviewers.split(",") : []
   };
 }
