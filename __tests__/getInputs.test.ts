@@ -50,3 +50,29 @@ it("should parse owner and repo", function() {
   expect(inputs).toHaveProperty("owner", "foo");
   expect(inputs).toHaveProperty("repo", "bar");
 });
+
+it("should default to empty list of reviewers", function() {
+  const inputs = morph(getInputs, {
+    ...MANDATORY_INPUTS
+  });
+
+  expect(inputs).toHaveProperty("reviewers", []);
+});
+
+it("should split reviewers by comma", function() {
+  const inputs = morph(getInputs, {
+    ...MANDATORY_INPUTS,
+    INPUT_REVIEWERS: "thomaseizinger,bonomat"
+  });
+
+  expect(inputs).toHaveProperty("reviewers", ["thomaseizinger", "bonomat"]);
+});
+
+it("should trim reviewer names", function() {
+  const inputs = morph(getInputs, {
+    ...MANDATORY_INPUTS,
+    INPUT_REVIEWERS: "d4nte, bonomat, luckysori"
+  });
+
+  expect(inputs).toHaveProperty("reviewers", ["d4nte", "bonomat", "luckysori"]);
+});

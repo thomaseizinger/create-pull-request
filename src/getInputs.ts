@@ -35,6 +35,8 @@ export function getInputs(): Inputs {
     body,
     owner,
     repo,
-    reviewers: reviewers ? reviewers.split(",") : []
+    reviewers: reviewers
+      ? reviewers.split(",").map(reviewer => reviewer.trim())
+      : []
   };
 }
