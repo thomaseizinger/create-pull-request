@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+-   Git hook to make sure we always run `yarn build` before committing any Typescript changes. This should prevent dist/index.js from getting out of date.
+
 ### Fixed
 
 -   action.yml suggested to use `github-token` as the input where as in reality, we are looking for an input `github_token` (note the underscore!)
