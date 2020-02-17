@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@v1
     
     - name: Create pull request
-      uses: thomaseizinger/create-pull-request@v1
+      uses: thomaseizinger/create-pull-request@master
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref }}
