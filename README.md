@@ -12,7 +12,7 @@ jobs:
   create-pr-on-push:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@1.0.0
     
     - name: Create pull request
       uses: thomaseizinger/create-pull-request@master
