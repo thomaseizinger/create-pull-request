@@ -21,3 +21,7 @@ jobs:
         branch: ${{ github.ref }}
         title: "An automatically created PR!"
 ```
+
+## Advanced usage
+
+To get an idea of all inputs that are supported, have a look at [this file](./src/getInputs.ts) or the [tests](./__tests__/getInputs.test.ts).
