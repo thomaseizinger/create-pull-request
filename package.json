@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thomaseizinger/create-pull-request-action.git"
+    "url": "git+https://github.com/thomaseizinger/create-pull-request.git"
   },
   "author": "Thomas Eizinger",
   "license": "MIT",
