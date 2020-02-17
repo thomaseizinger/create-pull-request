@@ -1,15 +1,7 @@
 import { getInput } from "@actions/core/lib/core";
+import {PullsCreateReviewRequestParams, PullsCreateParams} from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/rest-endpoint-methods-types'
 
-interface Inputs {
-  base: string;
-  head: string;
-  draft?: boolean;
-  title: string;
-  body?: string;
-  owner: string;
-  repo: string;
-  reviewers: string[];
-}
+type Inputs = PullsCreateParams & Required<Omit<PullsCreateReviewRequestParams, 'pull_number' | 'team_reviewers'>>
 
 export function getInputs(): Inputs {
   const head = getInput("head", { required: true });
