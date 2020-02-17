@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+-   action.yml suggested to use `github-token` as the input where as in reality, we are looking for an input `github_token` (note the underscore!)
+
 ## [1.0.0] - 2020-02-15
 
 ### Added
