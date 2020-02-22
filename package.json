@@ -5,6 +5,7 @@
   "description": "A GitHub action for creating pull requests.",
   "main": "dist/index.js",
   "scripts": {
+    "postinstall": "git config core.hooksPath .githooks",
     "build": "webpack --mode production",
     "compile": "tsc",
     "format": "prettier --write **/*.ts",
