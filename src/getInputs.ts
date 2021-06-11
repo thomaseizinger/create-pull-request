@@ -1,7 +1,12 @@
 import { getInput } from "@actions/core/lib/core";
-import {PullsCreateReviewRequestParams, PullsCreateParams} from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/rest-endpoint-methods-types'
+import {
+  PullsCreateReviewRequestParams,
+  PullsCreateParams
+} from "@octokit/plugin-rest-endpoint-methods/dist-types/generated/rest-endpoint-methods-types";
 
-type Inputs = PullsCreateParams & { baseurl?: string } & Required<Omit<PullsCreateReviewRequestParams, 'pull_number' | 'team_reviewers'>>
+type Inputs = PullsCreateParams & { baseurl?: string } & Required<
+    Omit<PullsCreateReviewRequestParams, "pull_number" | "team_reviewers">
+  >;
 
 export function getInputs(): Inputs {
   const head = getInput("head", { required: true });
