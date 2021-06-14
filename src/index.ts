@@ -6,12 +6,10 @@ import { HttpsProxyAgent } from "https-proxy-agent";
 
 async function run(): Promise<void> {
   try {
-    const { reviewers, baseurl, ...pullParams } = getInputs();
+    const { reviewers, ...pullParams } = getInputs();
 
     const options: OctokitOptions = {};
-    if (baseurl !== undefined) {
-      options.baseUrl = `${baseurl}/api/v3`;
-    }
+    options.baseUrl = process.env.GITHUB_API_URL;
 
     const proxy = process.env.https_proxy || process.env.HTTPS_PROXY;
     if (proxy) {

@@ -26,9 +26,6 @@ inputs:
   reviewers:
     description: 'A comma-separated list of GitHub logins that should review this PR.'
     required: false
-  base_url:
-    description: 'Specify if you want to use GitHub Enterprise.'
-    required: false
 outputs:
   number:
     description: 'Pull Request number'

@@ -4,7 +4,8 @@ import {
   PullsCreateParams
 } from "@octokit/plugin-rest-endpoint-methods/dist-types/generated/rest-endpoint-methods-types";
 
-type Inputs = PullsCreateParams & { baseurl?: string } & Required<
+type Inputs = PullsCreateParams &
+  Required<
     Omit<PullsCreateReviewRequestParams, "pull_number" | "team_reviewers">
   >;
 
@@ -15,7 +16,6 @@ export function getInputs(): Inputs {
   const draft = getInput("draft") ? JSON.parse(getInput("draft")) : undefined;
   const body = getInput("body") || undefined;
   const reviewers = getInput("reviewers");
-  const baseurl = getInput("base_url") || undefined;
 
   const githubRepository = process.env.GITHUB_REPOSITORY;
 
@@ -33,7 +33,6 @@ export function getInputs(): Inputs {
     body,
     owner,
     repo,
-    baseurl,
     reviewers: reviewers
       ? reviewers.split(",").map(reviewer => reviewer.trim())
       : []
