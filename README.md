@@ -26,3 +26,17 @@ jobs:
 ## Advanced usage
 
 To get an idea of all inputs that are supported, have a look at [this file](./src/getInputs.ts) or the [tests](./__tests__/getInputs.test.ts).
+
+For self-hosted runners behind a corporate proxy, set the https_proxy environment variable.
+
+```yaml    
+    - name: Create pull request
+      uses: thomaseizinger/create-pull-request@master
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        head: ${{ github.ref }}
+        base: master
+        title: "An automatically created PR!"
+      env:
+        https_proxy: http://<proxy_address>:<port>
+```
