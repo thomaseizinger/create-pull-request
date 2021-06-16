@@ -1,8 +1,8 @@
-import { setFailed, setOutput } from "@actions/core";
-import { Octokit } from "@octokit/action";
-import { OctokitOptions } from "@octokit/core/dist-types/types";
-import { getInputs } from "./getInputs";
-import { HttpsProxyAgent } from "https-proxy-agent";
+import { setFailed, setOutput } from '@actions/core';
+import { OctokitOptions } from '@octokit/core/dist-types/types';
+import { Octokit } from '@octokit/action';
+import { HttpsProxyAgent } from 'https-proxy-agent';
+import { getInputs } from './getInputs';
 
 async function run(): Promise<void> {
   try {
@@ -14,7 +14,7 @@ async function run(): Promise<void> {
     const proxy = process.env.https_proxy || process.env.HTTPS_PROXY;
     if (proxy) {
       options.request = {
-        agent: new HttpsProxyAgent(proxy)
+        agent: new HttpsProxyAgent(proxy),
       };
     }
 
@@ -28,12 +28,12 @@ async function run(): Promise<void> {
         owner: pullParams.owner,
         repo: pullParams.repo,
         pull_number: pullNumber,
-        reviewers
+        reviewers,
       });
     }
 
-    setOutput("number", pullNumber.toString());
-    setOutput("html_url", htmlUrl);
+    setOutput('number', pullNumber.toString());
+    setOutput('html_url', htmlUrl);
   } catch (error) {
     setFailed(error.message);
   }
