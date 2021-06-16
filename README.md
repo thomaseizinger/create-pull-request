@@ -29,8 +29,8 @@ To get an idea of all inputs that are supported, have a look at [this file](./sr
 
 For self-hosted runners behind a corporate proxy, set the https_proxy environment variable.
 
-```yaml    
-    - name: Create pull request
+```yaml
+- name: Create pull request
       uses: thomaseizinger/create-pull-request@master
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

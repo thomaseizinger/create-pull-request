@@ -1,29 +1,30 @@
-import { getInput } from "@actions/core/lib/core";
+import { getInput } from '@actions/core/lib/core';
 import {
+  PullsCreateParams,
   PullsCreateReviewRequestParams,
-  PullsCreateParams
-} from "@octokit/plugin-rest-endpoint-methods/dist-types/generated/rest-endpoint-methods-types";
+} from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/rest-endpoint-methods-types';
 
-type Inputs = PullsCreateParams &
-  Required<
-    Omit<PullsCreateReviewRequestParams, "pull_number" | "team_reviewers">
+type Inputs =
+  & PullsCreateParams
+  & Required<
+    Omit<PullsCreateReviewRequestParams, 'pull_number' | 'team_reviewers'>
   >;
 
 export function getInputs(): Inputs {
-  const head = getInput("head", { required: true });
-  const title = getInput("title", { required: true });
-  const base = getInput("base") || "master";
-  const draft = getInput("draft") ? JSON.parse(getInput("draft")) : undefined;
-  const body = getInput("body") || undefined;
-  const reviewers = getInput("reviewers");
+  const head = getInput('head', { required: true });
+  const title = getInput('title', { required: true });
+  const base = getInput('base') || 'master';
+  const draft = getInput('draft') ? JSON.parse(getInput('draft')) : undefined;
+  const body = getInput('body') || undefined;
+  const reviewers = getInput('reviewers');
 
   const githubRepository = process.env.GITHUB_REPOSITORY;
 
   if (!githubRepository) {
-    throw new Error("GITHUB_REPOSITORY is not set");
+    throw new Error('GITHUB_REPOSITORY is not set');
   }
 
-  const [owner, repo] = githubRepository.split("/");
+  const [owner, repo] = githubRepository.split('/');
 
   return {
     head,
@@ -34,7 +35,7 @@ export function getInputs(): Inputs {
     owner,
     repo,
     reviewers: reviewers
-      ? reviewers.split(",").map(reviewer => reviewer.trim())
-      : []
+      ? reviewers.split(',').map(reviewer => reviewer.trim())
+      : [],
   };
 }
