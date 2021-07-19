@@ -113,3 +113,84 @@ jobs:
             https://api.github.com/repos/${{ github.repository }}/pulls/${{ steps.create-pr-with-reviewers.outputs.number }} \
             -d '{"state":"closed"}'
         if: always()
+
+  create-pr-with-labels:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          git config user.email noreply@github.com
+          git config user.name "GitHub actions"
+          git checkout -b feature/test/${{ github.sha }}-labels
+          echo date > current-date.txt
+          git add current-date.txt
+          git commit --message "Some changes"
+          git push origin feature/test/${{ github.sha }}-labels
+      - uses: ./
+        id: create-pr-with-labels
+        with:
+          head: feature/test/${{ github.sha }}-labels
+          title: Testing commit ${{ github.sha }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          labels: label1,label2
+      - name: Validate that PR exists
+        run: curl --fail https://api.github.com/repos/${{ github.repository }}/pulls/${{ steps.create-pr-with-labels.outputs.number }}
+      - name: Close PR
+        run: |
+          curl \
+            -X PATCH \
+            -H 'Accept: application/vnd.github.v3+json' \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            https://api.github.com/repos/${{ github.repository }}/pulls/${{ steps.create-pr-with-labels.outputs.number }} \
+            -d '{"state":"closed"}'
+        if: always()
+
+  do-not-fail-on-existing_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          git config user.email noreply@github.com
+          git config user.name "GitHub actions"
+          git checkout -b feature/test/${{ github.sha }}
+          echo date > current-date.txt
+          git add current-date.txt
+          git commit --message "Some changes"
+          git push origin feature/test/${{ github.sha }}
+      - uses: ./
+        id: create-pr
+        with:
+          head: feature/test/${{ github.sha }}
+          title: Testing commit ${{ github.sha }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Validate that PR exists
+        run: curl --fail https://api.github.com/repos/${{ github.repository }}/pulls/${{ steps.create-pr.outputs.number }}
+      - uses: ./
+        id: second-create-pr
+        with:
+          head: feature/test/${{ github.sha }}
+          title: Testing commit ${{ github.sha }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Validate that only first PR is created
+        run: |
+          if [ "${{ steps.create-pr.outputs.created }}" -ne "true" ]
+          then
+            echo "First PR is not created: ${{ steps.create-pr.outputs.created }}"
+            exit 1
+          fi
+          if [ "${{ steps.second-create-pr.outputs.created }}" -ne "false" ]
+          then
+            echo "Second PR is created: ${{ steps.second-create-pr.outputs.created }}"
+            exit 1
+          fi
+      - name: Close PR
+        run: |
+          curl \
+            -X PATCH \
+            -H 'Accept: application/vnd.github.v3+json' \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            https://api.github.com/repos/${{ github.repository }}/pulls/${{ steps.create-pr.outputs.number }} \
+            -d '{"state":"closed"}'
+        if: always()

@@ -1,5 +1,6 @@
 import { getInput } from '@actions/core/lib/core';
 import {
+  IssuesAddLabelsParams,
   PullsCreateParams,
   PullsCreateReviewRequestParams,
 } from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/rest-endpoint-methods-types';
@@ -8,6 +9,9 @@ type Inputs =
   & PullsCreateParams
   & Required<
     Omit<PullsCreateReviewRequestParams, 'pull_number' | 'team_reviewers'>
+  >
+  & Required<
+    Omit<IssuesAddLabelsParams, 'issue_number'>
   >;
 
 export function getInputs(): Inputs {
@@ -17,6 +21,7 @@ export function getInputs(): Inputs {
   const draft = getInput('draft') ? JSON.parse(getInput('draft')) : undefined;
   const body = getInput('body') || undefined;
   const reviewers = getInput('reviewers');
+  const labels = getInput('labels');
 
   const githubRepository = process.env.GITHUB_REPOSITORY;
 
@@ -36,6 +41,9 @@ export function getInputs(): Inputs {
     repo,
     reviewers: reviewers
       ? reviewers.split(',').map(reviewer => reviewer.trim())
+      : [],
+    labels: labels
+      ? labels.split(',').map(label => label.trim())
       : [],
   };
 }
