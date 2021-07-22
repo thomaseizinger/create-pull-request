@@ -174,12 +174,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Validate that only first PR is created
         run: |
-          if [ "${{ steps.create-pr.outputs.created }}" -ne "true" ]
+          if [ "${{ steps.create-pr.outputs.created }}" != "true" ]
           then
             echo "First PR is not created: ${{ steps.create-pr.outputs.created }}"
             exit 1
           fi
-          if [ "${{ steps.second-create-pr.outputs.created }}" -ne "false" ]
+          if [ "${{ steps.second-create-pr.outputs.created }}" != "false" ]
           then
             echo "Second PR is created: ${{ steps.second-create-pr.outputs.created }}"
             exit 1
