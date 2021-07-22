@@ -153,11 +153,11 @@ jobs:
       - run: |
           git config user.email noreply@github.com
           git config user.name "GitHub actions"
-          git checkout -b feature/test/${{ github.sha }}
+          git checkout -b feature/test/${{ github.sha }}-idempotent-case
           echo date > current-date.txt
           git add current-date.txt
           git commit --message "Some changes"
-          git push origin feature/test/${{ github.sha }}
+          git push origin feature/test/${{ github.sha }}-idempotent-case
       - uses: ./
         id: create-pr
         with:
