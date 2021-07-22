@@ -6,7 +6,7 @@ import { getInputs } from './getInputs';
 
 async function run(): Promise<void> {
   try {
-    const { reviewers, ...pullParams } = getInputs();
+    const { reviewers, labels, ...pullParams } = getInputs();
 
     const options: OctokitOptions = {};
     options.baseUrl = process.env.GITHUB_API_URL;
@@ -32,10 +32,24 @@ async function run(): Promise<void> {
       });
     }
 
+    if (labels.length > 0) {
+      await octokit.issues.addLabels({
+        owner: pullParams.owner,
+        repo: pullParams.repo,
+        issue_number: pullNumber,
+        labels: labels,
+      });
+    }
+
     setOutput('number', pullNumber.toString());
     setOutput('html_url', htmlUrl);
+    setOutput('created', 'true');
   } catch (error) {
-    setFailed(error.message);
+    if (error.message && error.message.includes('A pull request already exists')) {
+      setOutput('created', 'false');
+    } else {
+      setFailed(error.message);
+    }
   }
 }
 

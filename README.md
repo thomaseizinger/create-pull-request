@@ -40,3 +40,11 @@ For self-hosted runners behind a corporate proxy, set the https_proxy environmen
       env:
         https_proxy: http://<proxy_address>:<port>
 ```
+
+### Action outputs
+
+The following outputs can be set by action
+
+- `number` - Number of the created pull request.
+- `html_url` - URL of the created pull request.
+- `created` - 'true' if pull request was successfully created, 'false' if pull request existed already.
