@@ -169,7 +169,7 @@ jobs:
       - uses: ./
         id: second-create-pr
         with:
-          head: feature/test/${{ github.sha }}
+          head: feature/test/${{ github.sha }}-idempotent-case
           title: Testing commit ${{ github.sha }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Validate that only first PR is created
