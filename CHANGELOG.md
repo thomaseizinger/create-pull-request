@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Support for adding labels by setting `labels`
+- Check for existing pull request and `created` action output
+
 ## [1.1.0] - 2021-06-16
 
 ### Added

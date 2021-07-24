@@ -76,3 +76,29 @@ it('should trim reviewer names', function() {
 
   expect(inputs).toHaveProperty('reviewers', ['d4nte', 'bonomat', 'luckysori']);
 });
+
+it('should default to empty list of labels', function() {
+  const inputs = morph(getInputs, {
+    ...MANDATORY_INPUTS,
+  });
+
+  expect(inputs).toHaveProperty('labels', []);
+});
+
+it('should split labels by comma', function() {
+  const inputs = morph(getInputs, {
+    ...MANDATORY_INPUTS,
+    INPUT_LABELS: 'label1,label2',
+  });
+
+  expect(inputs).toHaveProperty('labels', ['label1', 'label2']);
+});
+
+it('should trim labels', function() {
+  const inputs = morph(getInputs, {
+    ...MANDATORY_INPUTS,
+    INPUT_LABELS: 'label1, label2, label3',
+  });
+
+  expect(inputs).toHaveProperty('labels', ['label1', 'label2', 'label3']);
+});
