@@ -100,7 +100,7 @@ jobs:
           head: feature/test/${{ github.sha }}-reviewers
           title: Testing commit ${{ github.sha }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          reviewers: thomaseizinger
+          reviewers: ${{ github.actor }}
       - name: Validate that PR exists
         run: curl --fail https://api.github.com/repos/${{ github.repository }}/pulls/${{ steps.create-pr-with-reviewers.outputs.number }}
       - name: Close PR
