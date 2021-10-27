@@ -29,6 +29,9 @@ inputs:
   labels:
     description: 'A comma-separated list of labels to be set on this PR.'
     required: false
+  repository:
+    description: 'The repository in which the PR shall be created.'
+    required: false
 outputs:
   number:
     description: 'Pull Request number'

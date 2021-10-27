@@ -51,6 +51,16 @@ it('should parse owner and repo', function() {
   expect(inputs).toHaveProperty('repo', 'bar');
 });
 
+it('should parse owner and repo for input repository', function() {
+  const inputs = morph(getInputs, {
+    ...MANDATORY_INPUTS,
+    INPUT_REPOSITORY: 'my/repository',
+  });
+
+  expect(inputs).toHaveProperty('owner', 'my');
+  expect(inputs).toHaveProperty('repo', 'repository');
+});
+
 it('should default to empty list of reviewers', function() {
   const inputs = morph(getInputs, {
     ...MANDATORY_INPUTS,
