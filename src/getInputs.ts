@@ -22,8 +22,9 @@ export function getInputs(): Inputs {
   const body = getInput('body') || undefined;
   const reviewers = getInput('reviewers');
   const labels = getInput('labels');
+  const repository = getInput('repository');
 
-  const githubRepository = process.env.GITHUB_REPOSITORY;
+  const githubRepository = repository || process.env.GITHUB_REPOSITORY;
 
   if (!githubRepository) {
     throw new Error('GITHUB_REPOSITORY is not set');
