@@ -6,7 +6,7 @@ import { getInputs } from './getInputs';
 
 async function run(): Promise<void> {
   try {
-    const { reviewers, labels, ...pullParams } = getInputs();
+    const { reviewers,team_reviewers, labels, ...pullParams } = getInputs();
 
     const options: OctokitOptions = {};
     options.baseUrl = process.env.GITHUB_API_URL;
@@ -29,6 +29,7 @@ async function run(): Promise<void> {
         repo: pullParams.repo,
         pull_number: pullNumber,
         reviewers,
+        team_reviewers,
       });
     }
 

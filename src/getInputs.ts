@@ -8,7 +8,7 @@ import {
 type Inputs =
   & PullsCreateParams
   & Required<
-    Omit<PullsCreateReviewRequestParams, 'pull_number' | 'team_reviewers'>
+    Omit<PullsCreateReviewRequestParams, 'pull_number'>
   >
   & Required<
     Omit<IssuesAddLabelsParams, 'issue_number'>
@@ -21,6 +21,7 @@ export function getInputs(): Inputs {
   const draft = getInput('draft') ? JSON.parse(getInput('draft')) : undefined;
   const body = getInput('body') || undefined;
   const reviewers = getInput('reviewers');
+  const team_reviewers = getInput('team_reviewers');
   const labels = getInput('labels');
   const repository = getInput('repository');
 
@@ -42,6 +43,9 @@ export function getInputs(): Inputs {
     repo,
     reviewers: reviewers
       ? reviewers.split(',').map(reviewer => reviewer.trim())
+      : [],
+    team_reviewers: team_reviewers
+      ? team_reviewers.split(',').map(reviewer => reviewer.trim())
       : [],
     labels: labels
       ? labels.split(',').map(label => label.trim())
