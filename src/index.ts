@@ -6,7 +6,7 @@ import { getInputs } from './getInputs';
 
 async function run(): Promise<void> {
   try {
-    const { reviewers,team_reviewers, labels, ...pullParams } = getInputs();
+    const { reviewers,team_reviewers, assignees, labels, ...pullParams } = getInputs();
 
     const options: OctokitOptions = {};
     options.baseUrl = process.env.GITHUB_API_URL;
@@ -23,13 +23,22 @@ async function run(): Promise<void> {
     const pullNumber = pullRequest.data.number;
     const htmlUrl = pullRequest.data.html_url;
 
-    if (reviewers.length > 0) {
+    if (reviewers.length > 0 || team_reviewers.length > 0) {
       await octokit.pulls.createReviewRequest({
         owner: pullParams.owner,
         repo: pullParams.repo,
         pull_number: pullNumber,
         reviewers,
         team_reviewers,
+      });
+    }
+
+    if (assignees.length > 0) {
+      await octokit.issues.addAssignees({
+        owner: pullParams.owner,
+        repo: pullParams.repo,
+        issue_number: pullNumber,
+        assignees,
       });
     }
 
