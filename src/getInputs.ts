@@ -1,7 +1,7 @@
 import { getInput } from '@actions/core/lib/core';
 import {
-  IssuesAddLabelsParams,
   IssuesAddAssigneesParams,
+  IssuesAddLabelsParams,
   PullsCreateParams,
   PullsCreateReviewRequestParams,
 } from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/rest-endpoint-methods-types';
