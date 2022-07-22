@@ -23,8 +23,14 @@ inputs:
   body:
     description: 'The body of the pull request.'
     required: false
+  assignees:
+    description: 'A comma-separated list of GitHub logins that should be assigned to this PR.'
+    required: false
   reviewers:
     description: 'A comma-separated list of GitHub logins that should review this PR.'
+    required: false
+  team_reviewers:
+    description: 'A comma-separated list of GitHub team slugs that should review this PR.'
     required: false
   labels:
     description: 'A comma-separated list of labels to be set on this PR.'
