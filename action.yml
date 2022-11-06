@@ -1,6 +1,6 @@
-name: 'Just Create A Pull Request'
-description: 'Does what it says on the tin, create a pull request, easy and simple.'
-author: 'Thomas Eizinger'
+name: 'Easy Pull Request'
+description: 'Simple and easy way to create a pull request.'
+author: 'Misha Behersky'
 branding:
   icon: git-pull-request
   color: white
