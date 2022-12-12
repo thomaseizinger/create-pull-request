@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support for adding team reviewers by setting `team_reviewers`
 - Support for adding assignees by setting `assignees`
 
+### Changed
+
+- Execute action using `node16` instead of `node12` which is now deprecated.
+
 ## [1.2.0] - 2021-07-26
 
 ### Added
