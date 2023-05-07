@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- `set-output` deprecation warning (https://github.com/thomaseizinger/create-pull-request/pull/257)
+- Deprecation warning for `set-output` command from `actions/core` dependency.
 
 ## [1.3.0] - 2022-12-12
 
