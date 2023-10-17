@@ -17,7 +17,7 @@ jobs:
     - name: Create pull request
       uses: thomaseizinger/create-pull-request@master
       with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         head: ${{ github.ref }}
         base: master
         title: "An automatically created PR!"
@@ -33,7 +33,7 @@ For self-hosted runners behind a corporate proxy, set the https_proxy environmen
 - name: Create pull request
       uses: thomaseizinger/create-pull-request@master
       with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         head: ${{ github.ref }}
         base: master
         title: "An automatically created PR!"
