@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.23",
-    "@types/node": "^12.7.12",
+    "@types/node": "^20.12.7",
     "jest": "^24.9.0",
     "jest-circus": "^25.1.0",
     "mock-env": "^0.2.0",

@@ -44,5 +44,5 @@ outputs:
   html_url:
     description: 'URL that Pull Request may be reviewed at'
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'
