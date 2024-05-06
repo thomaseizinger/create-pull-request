@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Execute action using `node20` instead of `node16` which is now deprecated.
+
 ## [1.3.1] - 2023-06-28
 
 ### Fixed
